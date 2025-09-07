@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package chat;
+
+// Service definition
+service ChatService {
+    // Join the chat room
+    rpc Join(JoinRequest) returns (JoinResponse);
+
+    // Send a message to the chat room
+    rpc SendMessage(MessageRequest) returns (MessageResponse);
+
+    // Leave the chat room
+    rpc Leave(LeaveRequest) returns (LeaveResponse);
+
+    // Stream of messages from the server
+    rpc StreamMessages(StreamRequest) returns (stream ChatMessage);
+}
+
+// Request to join the chat
+message JoinRequest {
+    string username = 1;
+}
+
+// Response to join request
+message JoinResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+// Request to send a message
+message MessageRequest {
+    string username = 1;
+    string message = 2;
+}
+
+// Response to message request
+message MessageResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+// Request to leave the chat
+message LeaveRequest {
+    string username = 1;
+}
+
+// Response to leave request
+message LeaveResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+// Request to start streaming messages
+message StreamRequest {
+    string username = 1;
+}
+
+// Chat message
+message ChatMessage {
+    string username = 1;
+    string message = 2;
+    int64 timestamp = 3;
+}
